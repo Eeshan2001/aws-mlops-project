@@ -75,12 +75,26 @@ def train():
         lda
     )
 
+    # Replace these labels after inspecting the output of show_topics.py
+    topic_labels = {
+        0: "Cryptography & Security",
+        1: "Space Exploration",
+        2: "Automobiles",
+        3: "Healthcare & Medicine",
+        4: "Sports (Hockey)",
+        5: "Religion",
+        6: "Software & Operating Systems",
+        7: "Computer Hardware",
+        8: "Politics & International Affairs",
+        9: "Gun Laws & Politics"
+    }
+
     save_object(
         os.path.join(
             ARTIFACT_DIR,
             "topic_labels.pkl"
         ),
-        [f"Topic_{i}" for i in range(N_TOPICS)]
+        topic_labels
     )
 
     print("Training Completed")
