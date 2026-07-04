@@ -1,26 +1,23 @@
-# Python
 __pycache__/
+
 *.pyc
 
-# Virtual Environment
-.venv/
-
-# Environment Variables
 .env
 
-# VSCode
-.vscode/
-
-# Logs
 logs/
 
-# Model Files
 artifacts/*.pkl
 
-# Terraform
-.terraform/
-*.tfstate
-*.tfstate.backup
+artifacts/*.json
 
-# Docker
-*.tar
+terraform/.terraform/
+
+terraform/*.tfstate
+
+.vscode/
+
+.idea/
+
+venv/
+
+.venv/

@@ -1,4 +1,7 @@
+import json
 import os
+import shutil
+from datetime import datetime, UTC
 
 from sklearn.datasets import fetch_20newsgroups
 
@@ -11,6 +14,8 @@ from training.utils import save_object
 
 
 ARTIFACT_DIR = "artifacts"
+
+VERSION = "1.0.0"
 
 N_TOPICS = 10
 
@@ -99,6 +104,38 @@ def train():
 
     print("Training Completed")
 
+    metadata = {
+        "model_name": "LDA Topic Model",
+        "model_version": "1.0.0",
+        "training_date": datetime.now(UTC).isoformat(),
+        "n_topics": N_TOPICS,
+        "vectorizer": "CountVectorizer",
+        "dataset": "20 Newsgroups"
+    }
+
+    with open("artifacts/model_metadata.json", "w") as f:
+        json.dump(metadata, f, indent=4)
+
+    artifacts = [
+        "lda_model.pkl",
+        "vectorizer.pkl",
+        "topic_labels.pkl",
+        "model_metadata.json"
+    ]
+
+    for artifact in artifacts:
+        source = os.path.join("artifacts", artifact)
+
+        filename, extension = os.path.splitext(artifact)
+
+        destination = os.path.join(
+            "artifacts",
+            f"{filename}_{VERSION}{extension}"
+        )
+
+        shutil.copy(source, destination)
+
+    print(f"Versioned artifacts created for version {VERSION}")
 
 if __name__ == "__main__":
     train()
