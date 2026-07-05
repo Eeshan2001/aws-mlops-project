@@ -4,4 +4,4 @@ project_name = "topic-modeling"
 
 environment = "dev"
 
-image_tag    = "v1.0.0"
+image_tag = "v1"
