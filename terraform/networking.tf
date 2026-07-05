@@ -1,3 +1,7 @@
+##############################################
+# VPC
+##############################################
+
 resource "aws_vpc" "main" {
 
   cidr_block = "10.0.0.0/16"
@@ -7,18 +11,27 @@ resource "aws_vpc" "main" {
   enable_dns_hostnames = true
 
   tags = {
-
     Name = "${var.project_name}-vpc"
-
   }
-
 }
+
+##############################################
+# Internet Gateway
+##############################################
 
 resource "aws_internet_gateway" "main" {
 
   vpc_id = aws_vpc.main.id
 
+  tags = {
+    Name = "${var.project_name}-igw"
+  }
+
 }
+
+##############################################
+# Public Subnet A
+##############################################
 
 resource "aws_subnet" "public_a" {
 
@@ -30,7 +43,15 @@ resource "aws_subnet" "public_a" {
 
   map_public_ip_on_launch = true
 
+  tags = {
+    Name = "${var.project_name}-public-a"
+  }
+
 }
+
+##############################################
+# Public Subnet B
+##############################################
 
 resource "aws_subnet" "public_b" {
 
@@ -42,7 +63,15 @@ resource "aws_subnet" "public_b" {
 
   map_public_ip_on_launch = true
 
+  tags = {
+    Name = "${var.project_name}-public-b"
+  }
+
 }
+
+##############################################
+# Public Route Table
+##############################################
 
 resource "aws_route_table" "public" {
 
@@ -58,6 +87,10 @@ resource "aws_route_table" "public" {
 
 }
 
+##############################################
+# Route Association A
+##############################################
+
 resource "aws_route_table_association" "public_a" {
 
   subnet_id = aws_subnet.public_a.id
@@ -66,6 +99,10 @@ resource "aws_route_table_association" "public_a" {
 
 }
 
+##############################################
+# Route Association B
+##############################################
+
 resource "aws_route_table_association" "public_b" {
 
   subnet_id = aws_subnet.public_b.id
@@ -73,4 +110,3 @@ resource "aws_route_table_association" "public_b" {
   route_table_id = aws_route_table.public.id
 
 }
-

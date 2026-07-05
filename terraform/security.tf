@@ -1,12 +1,14 @@
-#########################################
+##############################################
 # ALB Security Group
-#########################################
+##############################################
 
 resource "aws_security_group" "alb" {
 
-  name        = "${var.project_name}-alb-sg"
-  description = "Allow HTTP traffic"
-  vpc_id      = aws_vpc.main.id
+  name = "${var.project_name}-alb-sg"
+
+  description = "Allow HTTP traffic to ALB"
+
+  vpc_id = aws_vpc.main.id
 
   ingress {
 
@@ -34,13 +36,15 @@ resource "aws_security_group" "alb" {
 
 }
 
-#########################################
+##############################################
 # ECS Security Group
-#########################################
+##############################################
 
 resource "aws_security_group" "ecs" {
 
   name = "${var.project_name}-ecs-sg"
+
+  description = "Allow traffic only from ALB"
 
   vpc_id = aws_vpc.main.id
 
