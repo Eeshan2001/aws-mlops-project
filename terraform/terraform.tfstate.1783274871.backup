@@ -1,7 +1,7 @@
 {
   "version": 4,
   "terraform_version": "1.15.7",
-  "serial": 51,
+  "serial": 53,
   "lineage": "c28a4758-6083-7490-5b38-eabdf258b8cf",
   "outputs": {
     "alb_dns_name": {
@@ -159,6 +159,104 @@
     },
     {
       "mode": "managed",
+      "type": "aws_ecs_service",
+      "name": "main",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "alarms": [],
+            "availability_zone_rebalancing": "DISABLED",
+            "capacity_provider_strategy": [],
+            "cluster": "arn:aws:ecs:us-east-1:123515105191:cluster/topic-modeling-cluster",
+            "deployment_circuit_breaker": [
+              {
+                "enable": false,
+                "rollback": false
+              }
+            ],
+            "deployment_controller": [
+              {
+                "type": "ECS"
+              }
+            ],
+            "deployment_maximum_percent": 200,
+            "deployment_minimum_healthy_percent": 100,
+            "desired_count": 1,
+            "enable_ecs_managed_tags": false,
+            "enable_execute_command": false,
+            "force_delete": null,
+            "force_new_deployment": null,
+            "health_check_grace_period_seconds": 0,
+            "iam_role": "/aws-service-role/ecs.amazonaws.com/AWSServiceRoleForECS",
+            "id": "arn:aws:ecs:us-east-1:123515105191:service/topic-modeling-cluster/topic-modeling-service",
+            "launch_type": "FARGATE",
+            "load_balancer": [
+              {
+                "container_name": "topic-modeling",
+                "container_port": 5000,
+                "elb_name": "",
+                "target_group_arn": "arn:aws:elasticloadbalancing:us-east-1:123515105191:targetgroup/topic-modeling-tg/6c291760b547ec15"
+              }
+            ],
+            "name": "topic-modeling-service",
+            "network_configuration": [
+              {
+                "assign_public_ip": true,
+                "security_groups": [
+                  "sg-029b0f0d9396c7d62"
+                ],
+                "subnets": [
+                  "subnet-073b783587f519a08",
+                  "subnet-09ac7b07f8a2e88ad"
+                ]
+              }
+            ],
+            "ordered_placement_strategy": [],
+            "placement_constraints": [],
+            "platform_version": "LATEST",
+            "propagate_tags": "NONE",
+            "scheduling_strategy": "REPLICA",
+            "service_connect_configuration": [],
+            "service_registries": [],
+            "tags": null,
+            "tags_all": {
+              "Environment": "dev",
+              "ManagedBy": "Terraform",
+              "Owner": "Eeshan",
+              "Project": "topic-modeling"
+            },
+            "task_definition": "arn:aws:ecs:us-east-1:123515105191:task-definition/topic-modeling-task:1",
+            "timeouts": null,
+            "triggers": {},
+            "volume_configuration": [],
+            "vpc_lattice_configurations": [],
+            "wait_for_steady_state": false
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxMjAwMDAwMDAwMDAwLCJkZWxldGUiOjEyMDAwMDAwMDAwMDAsInVwZGF0ZSI6MTIwMDAwMDAwMDAwMH0sInNjaGVtYV92ZXJzaW9uIjoiMSJ9",
+          "dependencies": [
+            "aws_cloudwatch_log_group.ecs",
+            "aws_ecr_repository.main",
+            "aws_ecs_cluster.main",
+            "aws_ecs_task_definition.main",
+            "aws_iam_role.ecs_execution_role",
+            "aws_lb.main",
+            "aws_lb_listener.http",
+            "aws_lb_target_group.main",
+            "aws_security_group.alb",
+            "aws_security_group.ecs",
+            "aws_subnet.public_a",
+            "aws_subnet.public_b",
+            "aws_vpc.main"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
       "type": "aws_ecs_task_definition",
       "name": "main",
       "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
@@ -188,7 +286,7 @@
             "revision": 1,
             "runtime_platform": [],
             "skip_destroy": false,
-            "tags": null,
+            "tags": {},
             "tags_all": {
               "Environment": "dev",
               "ManagedBy": "Terraform",
@@ -377,7 +475,7 @@
               "subnet-073b783587f519a08",
               "subnet-09ac7b07f8a2e88ad"
             ],
-            "tags": null,
+            "tags": {},
             "tags_all": {
               "Environment": "dev",
               "ManagedBy": "Terraform",
@@ -450,7 +548,7 @@
             "routing_http_response_x_content_type_options_header_value": "",
             "routing_http_response_x_frame_options_header_value": "",
             "ssl_policy": "",
-            "tags": null,
+            "tags": {},
             "tags_all": {
               "Environment": "dev",
               "ManagedBy": "Terraform",
@@ -503,7 +601,9 @@
             "id": "arn:aws:elasticloadbalancing:us-east-1:123515105191:targetgroup/topic-modeling-tg/6c291760b547ec15",
             "ip_address_type": "ipv4",
             "lambda_multi_value_headers_enabled": false,
-            "load_balancer_arns": [],
+            "load_balancer_arns": [
+              "arn:aws:elasticloadbalancing:us-east-1:123515105191:loadbalancer/app/topic-modeling-alb/23730118f8b30b60"
+            ],
             "load_balancing_algorithm_type": "round_robin",
             "load_balancing_anomaly_mitigation": "off",
             "load_balancing_cross_zone_enabled": "use_load_balancer_configuration",
@@ -523,7 +623,7 @@
                 "type": "lb_cookie"
               }
             ],
-            "tags": null,
+            "tags": {},
             "tags_all": {
               "Environment": "dev",
               "ManagedBy": "Terraform",
