@@ -66,6 +66,57 @@ resource "aws_iam_role_policy" "codestar_connection" {
 
 }
 
+resource "aws_iam_role_policy" "pipeline_artifact_bucket" {
+
+  name = "${var.project_name}-artifact-bucket"
+
+  role = aws_iam_role.codepipeline_role.id
+
+  policy = jsonencode({
+
+    Version = "2012-10-17"
+
+    Statement = [
+
+      {
+
+        Effect = "Allow"
+
+        Action = [
+
+          "s3:GetBucketVersioning",
+          "s3:GetBucketLocation",
+          "s3:ListBucket"
+
+        ]
+
+        Resource = aws_s3_bucket.pipeline_artifacts.arn
+
+      },
+
+      {
+
+        Effect = "Allow"
+
+        Action = [
+
+          "s3:GetObject",
+          "s3:GetObjectVersion",
+          "s3:PutObject",
+          "s3:DeleteObject"
+
+        ]
+
+        Resource = "${aws_s3_bucket.pipeline_artifacts.arn}/*"
+
+      }
+
+    ]
+
+  })
+
+}
+
 resource "aws_codepipeline" "main" {
 
   name = "${var.project_name}-pipeline"
