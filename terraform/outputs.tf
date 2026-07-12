@@ -51,3 +51,7 @@ output "alb_dns_name" {
   value = aws_lb.main.dns_name
 
 }
+
+output "pipeline_artifact_bucket" {
+  value = aws_s3_bucket.pipeline_artifacts.bucket
+}
