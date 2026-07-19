@@ -33,7 +33,6 @@ The application predicts topics from user-provided text using Natural Language P
 
 # 🏗️ Solution Architecture
 
-> Add your architecture diagram here.
 
 <p align="center">
 
@@ -537,21 +536,6 @@ During this project, I gained practical experience in:
 
 ---
 
-# 📸 Screenshots
-
-Add screenshots for:
-
-- Home Page
-- Topic Prediction
-- ECS Cluster
-- ECS Service
-- Amazon ECR
-- Application Load Balancer
-- CloudWatch Logs
-- CodePipeline
-- Terraform Apply Output
-
----
 
 # 🎯 Skills Demonstrated
 
